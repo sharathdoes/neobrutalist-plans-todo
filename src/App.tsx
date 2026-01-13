@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import SavedLists from "./components/savedLists";
 import AddTodo from "./components/Todo";
 import Loader from "./components/loading";
-import { GridBackground } from "@/components/grid";
 import { AnimatedTestimonialsDemo } from "./components/testimonials";
 
 function App() {

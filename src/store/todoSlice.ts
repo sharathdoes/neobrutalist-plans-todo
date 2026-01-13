@@ -1,6 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { getTodosFromStorage, saveTodos } from "@/lib/localstorage";
-import { act } from "react";
 
 export interface Todo {
   id: string;
@@ -17,8 +16,8 @@ export interface TodoList {
 const initialState : TodoList = {
   Todolist: [
     {  id: Date.now().toString(),
-        title: "Hey there! New here?",
-        description: "Mark this completed 😌",
+        title: "Hey there! New here? I'm Todo",
+        description: "Whats your type in Women? 😌",
         status: "Active",
         duration: 0
     }
