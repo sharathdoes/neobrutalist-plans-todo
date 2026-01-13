@@ -141,6 +141,7 @@ const [headerNumber, setHeaderNumber]=useState<"Active"|"Completed"|"All">("All"
                 setTitle(todo.title);
                 setDescription(todo.description);
                 setDuration(todo.duration);
+                setStatus(todo.status);
               }} />
             </div>
             
