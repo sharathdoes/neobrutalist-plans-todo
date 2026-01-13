@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../store/store";
-import { editTodo, getTodos } from "@/store/todoSlice";
+import { deleteTodo, editTodo, getTodos } from "@/store/todoSlice";
 import { Card } from "./ui/card";
 import { Trash } from "lucide-react";
 import { SquarePen } from "lucide-react";
@@ -9,6 +9,17 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Checkbox } from '@/components/ui/checkbox'
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Label } from "@/components/ui/label"
 
 const SavedLists = () => {
   const [edit, setEdit] = useState<string>("-1");
@@ -105,7 +116,25 @@ const [headerNumber, setHeaderNumber]=useState<"Active"|"Completed"|"All">("All"
               </span>
             </div>
             <div className="w-[15%] flex gap-2 items-center justify-around ">
-              <Trash />
+
+            <Dialog>
+    <DialogTrigger asChild>
+    <Trash />
+    </DialogTrigger>
+    <DialogContent className="sm:max-w-[425px]">
+      <DialogHeader>
+        <DialogTitle>Are you sure?</DialogTitle>
+      </DialogHeader>
+      
+      <DialogFooter>
+        <DialogClose asChild>
+          <Button variant="neutral">Cancel</Button>
+        </DialogClose>
+        <Button onClick={()=>{dispatch(deleteTodo({id:todo.id}))}} variant="default">Delete</Button>
+      </DialogFooter>
+    </DialogContent>
+</Dialog>
+
               <SquarePen onClick={() => {
                 setEdit(todo.id);
                 setTitle(todo.title);
