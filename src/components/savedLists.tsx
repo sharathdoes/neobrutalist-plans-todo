@@ -13,13 +13,11 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Label } from "@/components/ui/label"
 
 const SavedLists = () => {
   const [edit, setEdit] = useState<string>("-1");
@@ -32,14 +30,17 @@ const SavedLists = () => {
   const todos = useSelector((state: RootState) => state.Todo.Todolist);
 const [headerNumber, setHeaderNumber]=useState<"Active"|"Completed"|"All">("All")
   useEffect(() => {
-    dispatch(getTodos({status:headerNumber}));
+    dispatch(getTodos());
   }, [dispatch, headerNumber]);
   const handleUpdate=(e:any)=>{
     e.preventDefault();
     dispatch(editTodo({id:edit, title, description, duration, status}));
     setEdit("-1");
   }
- 
+  const filteredTodos = todos.filter((todo) => {
+    if (headerNumber === "All") return true;
+    return todo.status === headerNumber;
+  });
  
   return (
     <div className="w-full flex flex-col items-center gap-4 justify-center bg-muted/40 p-4">
@@ -51,7 +52,7 @@ const [headerNumber, setHeaderNumber]=useState<"Active"|"Completed"|"All">("All"
       {todos.length === 0 ? (
         <p className="text-muted-foreground text-sm">No saved todos yet.</p>
       ) : (
-        todos.map((todo: any) => (
+        filteredTodos.map((todo: any) => (
 
      todo.id===edit ? (
           <Card

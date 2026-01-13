@@ -19,6 +19,9 @@ const AddTodo = () => {
     e.preventDefault();
     dispatch(addTodo({title, description, duration:days}))
     console.log(title, description, days);
+    setTitle("")
+    setDescription("")
+    setDays(0)
   };
   return (
     <div className="w-full  flex  justify-center bg-muted/40 p-4">

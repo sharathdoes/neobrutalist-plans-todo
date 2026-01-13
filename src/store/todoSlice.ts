@@ -15,7 +15,14 @@ export interface TodoList {
 }
 
 const initialState : TodoList = {
-  Todolist: [],
+  Todolist: [
+    {  id: Date.now().toString(),
+        title: "Hey there! New here?",
+        description: "Mark this completed 😌",
+        status: "Active",
+        duration: 0
+    }
+  ],
 };
 const todo = createSlice({
   name: "todo",
@@ -51,18 +58,17 @@ const todo = createSlice({
         saveTodos(state.Todolist);
     }
 ,
-    getTodos: (state, action : PayloadAction<{status:'All'|'Active'|'Completed' }>) => {
+    getTodos: (state) => {
         const todos = getTodosFromStorage();
-        
-        if (action.payload.status === "All") {
-            state.Todolist = todos;
-          } else {
-            state.Todolist = todos.filter(
-              (t) => t.status === action.payload.status
-            );
-          }
-        
-        },
+
+        if (todos.length === 0) {
+          saveTodos(state.Todolist); 
+        } else {
+          state.Todolist = todos;
+        }
+    },
+  
+
     deleteTodo : (state, action : PayloadAction<{id:string}>)=>{
         state.Todolist=state.Todolist.filter((t)=>t.id!==action.payload.id)
         saveTodos(state.Todolist);
