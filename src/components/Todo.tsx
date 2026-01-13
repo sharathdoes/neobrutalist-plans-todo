@@ -17,11 +17,15 @@ const AddTodo = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    dispatch(addTodo({title, description, duration:days}))
+    if (!title.trim() || !description.trim() || !days) {
+      alert("Please fill in all fields (Title, Description, and Number of Days).");
+      return;
+    }
+    dispatch(addTodo({ title, description, duration: days }));
     console.log(title, description, days);
-    setTitle("")
-    setDescription("")
-    setDays(0)
+    setTitle("");
+    setDescription("");
+    setDays(0);
   };
   return (
     <div className="w-full  flex  justify-center bg-muted/40 p-4">
