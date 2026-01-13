@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    <ThemeProvider defaultTheme="light" >
     <Provider store={store}>
       <App />
     </Provider>
